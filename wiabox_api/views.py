@@ -11,7 +11,6 @@ class NodeViewSet(viewsets.ModelViewSet):
     queryset = Node.objects.all().order_by('last_updated_at')
     serializer_class = NodeSerializer
 
-
 class CommunityViewSet(viewsets.ModelViewSet):
     queryset = Community.objects.all().order_by('last_updated_at')
     serializer_class = CommunitySerializer
