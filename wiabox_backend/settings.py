@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wiabox_api.apps.WiaboxApiConfig'
+    'wiabox_api.apps.WiaboxApiConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
