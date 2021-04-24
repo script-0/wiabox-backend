@@ -3,10 +3,10 @@
 *.pot
 *.pyc
 wiabox_api/__pycache__
-wiabox_api/__pycache__
+wiabox_backend/__pycache__
 
 wiabox_api/migrations
-wiabox_api/migrations
+wiabox_backend/migrations
 
 db.sqlite3
 media
