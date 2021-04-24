@@ -2,7 +2,12 @@
 *.log
 *.pot
 *.pyc
-*/__pycache__
+wiabox_api/__pycache__
+wiabox_api/__pycache__
+
+wiabox_api/migrations
+wiabox_api/migrations
+
 db.sqlite3
 media
 
