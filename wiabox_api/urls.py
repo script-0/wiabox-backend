@@ -1,8 +1,12 @@
 from django.urls import include, path
+from rest_framework import routers
 from . import views
 
+router = routers.DefaultRouter()
+router.register(r'node', views.NodeViewSet)
+router.register(r'community', views.CommunityViewSet)
+
 urlpatterns = [
-    path('node/list', views.list_nodes),
-    path('community/list', views.list_communities),
+    path('', include(router.urls)),
     path('auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
