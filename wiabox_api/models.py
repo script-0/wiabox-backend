@@ -19,10 +19,13 @@ class Node(models.Model):
 	name = models.CharField(max_length = 50)
 	description = models.TextField(null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
-	last_updated_at = models.DateTimeField(auto_now=True)	
+	last_updated_at = models.DateTimeField(auto_now=True)
 	def __str__(self):
-		return 'Node [ name = '+self.name+' ;'+' latitude = '+ str(self.latitude) + ' ;' + ' longitude = '+ str(self.longitude) + ' ;' + ' community = '+ self.community_name + ' ;'   + ' state = '+ self.state + ' ]'
-
+		return self.name
+	'''
+		def __str__(self):
+			return 'Node [ name = '+self.name+' ;'+' latitude = '+ str(self.latitude) + ' ;' + ' longitude = '+ str(self.longitude) + ' ;' + ' community = '+ self.community_name + ' ;'   + ' state = '+ self.state + ' ]'
+	'''
 
 # Community Model
 class Community(models.Model):
@@ -33,4 +36,8 @@ class Community(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	last_updated_at = models.DateTimeField(auto_now=True)
 	def __str__(self):
-		return 'Community [ name = '+ self.name + ' ; original_node = ' + self.original_node + ' ; description = ' + self.description + ' ] ' 
+		return self.name
+	'''
+		def __str__(self):
+			return 'Community [ name = '+ self.name + ' ; original_node = ' + str(self.original_node) + ' ; description = ' + self.description + ' ] '
+	'''
