@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Node , Community
+from .models import Node , Community , Platform
 
 class NodeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -13,3 +13,8 @@ class CommunitySerializer(serializers.HyperlinkedModelSerializer):
         model = Community
         fields = ('name', 'email' , 'original_node' , 'description')
 
+
+class PlatformSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Platform
+        fields = ('name', 'key' , 'description')

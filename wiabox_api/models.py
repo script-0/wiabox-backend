@@ -41,3 +41,13 @@ class Community(models.Model):
 		def __str__(self):
 			return 'Community [ name = '+ self.name + ' ; original_node = ' + str(self.original_node) + ' ; description = ' + self.description + ' ] '
 	'''
+
+# Platform
+class Platform(models.Model):
+	name = models.CharField(max_length=50 , unique=True)
+	key = models.CharField(max_length=100)
+	description = models.TextField(null=True)
+	created_at = models.DateTimeField(auto_now_add=True)
+	last_updated_at = models.DateTimeField(auto_now=True)
+	def __str__(self):
+		return self.name
