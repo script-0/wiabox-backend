@@ -12,8 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .serializers import NodeSerializer , CommunitySerializer, UserSerializer
 from .models import Node , Community
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
-#from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import check_password
 
 class NodeViewSet(viewsets.ModelViewSet):
     queryset = Node.objects.all().order_by('last_updated_at')
@@ -55,10 +54,14 @@ def list_platform(request):
 def get_platform(request):
     if request.method == "POST" :
         data =json.loads(request.body)
-        return JsonResponse(make_password(data['key']))
-        #user = User.objects.get(username=data['name'] , password = make_password(data['key']) )
-        #serializer = UserSerializer(user, many=True)
-        #return JsonResponse(serializer.data, safe=False)
+        #return JsonResponse(make_password(data['key']) , safe=False)
+        user = User.objects.filter(username=data['name'])[0]
+        if( check_password(data['key'] , user.password) ) :
+            user.password = data['key']
+            serializer = UserSerializer(user, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else :
+            return JsonResponse({"error" : status.HTTP_401_UNAUTHORIZED , "description" : "Bad User's credentials"}, safe=False)
     else :
         return JsonResponse({"error" : status.HTTP_401_UNAUTHORIZED , "description" : "Bad Request. Waiting for POST Request"}, safe=False)
 
