@@ -55,13 +55,16 @@ def get_platform(request):
     if request.method == "POST" :
         data =json.loads(request.body)
         #return JsonResponse(make_password(data['key']) , safe=False)
-        user = User.objects.filter(username=data['name'])[0]
-        if( check_password(data['key'] , user.password) ) :
-            user.password = data['key']
-            serializer = UserSerializer(user, many=True)
-            return JsonResponse(serializer.data, safe=False)
-        else :
-            return JsonResponse({"error" : status.HTTP_401_UNAUTHORIZED , "description" : "Bad User's credentials"}, safe=False)
+        user = User.objects.filter(username=data['name'])
+        if not user :
+            return JsonResponse({"error" : status.HTTP_401_UNAUTHORIZED , "description" : "No User found with this credentials"}, safe=False)
+        else:
+            if( check_password(data['key'] , user[0].password) ) :
+                user[0].password = data['key']
+                serializer = UserSerializer(user, many=True)
+                return JsonResponse(serializer.data, safe=False)
+            else :
+                return JsonResponse({"error" : status.HTTP_401_UNAUTHORIZED , "description" : "Bad User's credentials"}, safe=False)
     else :
         return JsonResponse({"error" : status.HTTP_401_UNAUTHORIZED , "description" : "Bad Request. Waiting for POST Request"}, safe=False)
 
