@@ -3,6 +3,7 @@ from rest_framework import viewsets
 import json
 
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpResponse, JsonResponse
@@ -15,11 +16,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 
 class NodeViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Node.objects.all().order_by('last_updated_at')
     serializer_class = NodeSerializer
 
 
 class CommunityViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Community.objects.all().order_by('last_updated_at')
     serializer_class = CommunitySerializer
 
