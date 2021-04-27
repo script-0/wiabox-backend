@@ -4,8 +4,13 @@ from . import views
 from rest_framework_simplejwt import views as jwt_views
 
 router = routers.DefaultRouter()
-router.register(r'node', views.NodeViewSet)
+router.register(r'communityUser', views.CommunityUserViewSet)
 router.register(r'community', views.CommunityViewSet)
+router.register(r'node', views.NodeViewSet)
+router.register(r'article', views.ArticleViewSet)
+router.register(r'service', views.ServiceViewSet)
+router.register(r'Donation', views.DonationViewSet)
+router.register(r'Event', views.EventViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

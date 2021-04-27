@@ -10,16 +10,20 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import action
 from django.views.decorators.csrf import csrf_exempt
 
-from .serializers import NodeSerializer , CommunitySerializer, UserSerializer
-from .models import Node , Community
+from .serializers import CommunityUserSerializer , NodeSerializer , CommunitySerializer, UserSerializer, ArticleSerializer, ServiceSerializer, DonationSerializer, EventSerializer
+from .models import * 
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
+
+class CommunityUserViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    queryset = CommunityUser.objects.all().order_by('last_updated_at')
+    serializer_class = CommunityUserSerializer
 
 class NodeViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Node.objects.all().order_by('last_updated_at')
     serializer_class = NodeSerializer
-
 
 class CommunityViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
@@ -100,3 +104,23 @@ def authentificate(request):
 @action(methods=['GET'], detail=False)
 def retrieve(request, pk=None):
     return Response("Retrieve root : Unimplemented")
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    queryset = Article.objects.all().order_by('last_updated_at')
+    serializer_class = ArticleSerializer
+
+class ServiceViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    queryset = Service.objects.all().order_by('last_updated_at')
+    serializer_class = ServiceSerializer
+
+class DonationViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    queryset = Donation.objects.all().order_by('last_updated_at')
+    serializer_class = DonationSerializer
+
+class EventViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    queryset = Event.objects.all().order_by('last_updated_at')
+    serializer_class = EventSerializer
