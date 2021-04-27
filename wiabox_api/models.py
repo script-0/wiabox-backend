@@ -46,14 +46,14 @@ class Node(models.Model):
 	'''
 
 class Community(models.Model):
-	name =  models.CharField(max_length = 50, unique=True)
+	name =  models.CharField(max_length = 50, unique=True) 
 	email = models.EmailField()
 	original_node = models.ForeignKey(Node, on_delete = models.SET(0))
-	description = models.TextField(null=True)
-	facebook = models.TextField(null=True)
-	whatsapp = models.TextField(null=True)
-	twitter = models.TextField(null=True)
-	linkedin = models.TextField(null=True)
+	description = models.TextField(null=True , default = '')
+	facebook = models.TextField(null=True , default = '')
+	whatsapp = models.TextField(null=True , default = '')
+	twitter = models.TextField(null=True , default = '')
+	linkedin = models.TextField(null=True , default = '')
 	integrationProcess = models.CharField(choices = INTEGRATION_PROCESSES , max_length=1)
 	created_at = models.DateTimeField(auto_now_add=True)
 	last_updated_at = models.DateTimeField(auto_now=True)
