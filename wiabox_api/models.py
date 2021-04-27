@@ -8,13 +8,30 @@ NODE_STATES = (
 		('W' , 'Working'),
 	      )
 
+INTEGRATION_PROCESSES = (
+	('T' , 'Testing'),
+	('W' , 'Working'),
+)
+
 NO_COMMUNITY = 'NO COMMUNITY'
 
-# Node model.
+class CommunityUser(models.model):
+	firstName =  models.CharField(max_length = 50, unique=True)
+	lastName =  models.CharField(max_length = 50, unique=True)
+	login =  models.CharField(max_length = 10, unique=True)
+	password = models.CharField(max_length = 256, unique=True)
+	email = models.EmailField()
+	birthday = models.DateTimeField(auto_now_add=True)
+	created_at = models.DateTimeField(auto_now_add=True)
+	last_updated_at = models.DateTimeField(auto_now=True)
+	def __str__(self):
+		return self.firstName + self.lastName
+
 class Node(models.Model):
 	latitude = models.FloatField()
 	longitude = models.FloatField()
 	community_name = models.CharField(max_length = 50 , default = NO_COMMUNITY)
+	possessor = models.ForeignKey(CommunityUser, on_delete = models.SET(0))
 	state = models.CharField(choices = NODE_STATES , max_length=1)
 	name = models.CharField(max_length = 50)
 	description = models.TextField(null=True)
@@ -27,12 +44,16 @@ class Node(models.Model):
 			return 'Node [ name = '+self.name+' ;'+' latitude = '+ str(self.latitude) + ' ;' + ' longitude = '+ str(self.longitude) + ' ;' + ' community = '+ self.community_name + ' ;'   + ' state = '+ self.state + ' ]'
 	'''
 
-# Community Model
 class Community(models.Model):
 	name =  models.CharField(max_length = 50, unique=True)
 	email = models.EmailField()
 	original_node = models.ForeignKey(Node, on_delete = models.SET(0))
 	description = models.TextField(null=True)
+	facebook = models.TextField(null=True)
+	whatsapp = models.TextField(null=True)
+	twitter = models.TextField(null=True)
+	linkedin = models.TextField(null=True)
+	integrationProcess = models.CharField(choices = INTEGRATION_PROCESSES , max_length=1)
 	created_at = models.DateTimeField(auto_now_add=True)
 	last_updated_at = models.DateTimeField(auto_now=True)
 	def __str__(self):
@@ -41,3 +62,36 @@ class Community(models.Model):
 		def __str__(self):
 			return 'Community [ name = '+ self.name + ' ; original_node = ' + str(self.original_node) + ' ; description = ' + self.description + ' ] '
 	'''
+
+class Articles(models.model):
+	title =  models.CharField(max_length = 50, unique=True)
+	publicator = models.ForeignKey(CommunityUser, on_delete = models.SET(0))
+	community = models.ForeignKey(Community, on_delete = models.SET(0))
+	content = models.TextField(null=True)
+	publication_date = models.DateTimeField(auto_now_add=True)
+	last_updated_at = models.DateTimeField(auto_now=True)
+
+class Service(models.model):
+	name =  models.CharField(max_length = 50, unique=True)
+	node = models.ForeignKey(Node, on_delete = models.SET(0))
+	description = models.TextField(null=True)
+	created_at = models.DateTimeField(auto_now_add=True)
+	last_updated_at = models.DateTimeField(auto_now=True)
+
+class Donation(models.model):
+	title =  models.CharField(max_length = 50, unique=True)
+	author =  models.CharField(max_length = 50, unique=True)
+	community = models.ForeignKey(Community, on_delete = models.SET(0))
+	description = models.TextField(null=True)
+	create_at = models.DateTimeField(auto_now_add=True)
+	last_updated_at = models.DateTimeField(auto_now=True)
+
+class Event(models.model):
+	title =  models.CharField(max_length = 50, unique=True)
+	publicator = models.ForeignKey(CommunityUser, on_delete = models.SET(0))
+	community = models.ForeignKey(Community, on_delete = models.SET(0))
+	description = models.TextField(null=True)
+	lieu = models.TextField(null=True)
+	programmed_to = models.DateTimeField(auto_now_add=True)
+	publication_date = models.DateTimeField(auto_now_add=True)
+	last_updated_at = models.DateTimeField(auto_now=True)
