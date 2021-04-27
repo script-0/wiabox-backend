@@ -15,7 +15,7 @@ INTEGRATION_PROCESSES = (
 
 NO_COMMUNITY = 'NO COMMUNITY'
 
-class CommunityUser(models.model):
+class CommunityUser(models.Model):
 	firstName =  models.CharField(max_length = 50, unique=True)
 	lastName =  models.CharField(max_length = 50, unique=True)
 	login =  models.CharField(max_length = 10, unique=True)
@@ -31,7 +31,7 @@ class Node(models.Model):
 	latitude = models.FloatField()
 	longitude = models.FloatField()
 	community_name = models.CharField(max_length = 50 , default = NO_COMMUNITY)
-	possessor = models.ForeignKey(CommunityUser, on_delete = models.SET(0))
+	possessor = models.ForeignKey(CommunityUser, default=0, on_delete = models.SET(0))
 	state = models.CharField(choices = NODE_STATES , max_length=1)
 	name = models.CharField(max_length = 50)
 	description = models.TextField(null=True)
@@ -63,7 +63,7 @@ class Community(models.Model):
 			return 'Community [ name = '+ self.name + ' ; original_node = ' + str(self.original_node) + ' ; description = ' + self.description + ' ] '
 	'''
 
-class Articles(models.model):
+class Article(models.Model):
 	title =  models.CharField(max_length = 50, unique=True)
 	publicator = models.ForeignKey(CommunityUser, on_delete = models.SET(0))
 	community = models.ForeignKey(Community, on_delete = models.SET(0))
@@ -71,14 +71,14 @@ class Articles(models.model):
 	publication_date = models.DateTimeField(auto_now_add=True)
 	last_updated_at = models.DateTimeField(auto_now=True)
 
-class Service(models.model):
+class Service(models.Model):
 	name =  models.CharField(max_length = 50, unique=True)
 	node = models.ForeignKey(Node, on_delete = models.SET(0))
 	description = models.TextField(null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	last_updated_at = models.DateTimeField(auto_now=True)
 
-class Donation(models.model):
+class Donation(models.Model):
 	title =  models.CharField(max_length = 50, unique=True)
 	author =  models.CharField(max_length = 50, unique=True)
 	community = models.ForeignKey(Community, on_delete = models.SET(0))
@@ -86,7 +86,7 @@ class Donation(models.model):
 	create_at = models.DateTimeField(auto_now_add=True)
 	last_updated_at = models.DateTimeField(auto_now=True)
 
-class Event(models.model):
+class Event(models.Model):
 	title =  models.CharField(max_length = 50, unique=True)
 	publicator = models.ForeignKey(CommunityUser, on_delete = models.SET(0))
 	community = models.ForeignKey(Community, on_delete = models.SET(0))
