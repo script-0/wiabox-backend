@@ -1,6 +1,6 @@
 # Some stuffs
 
 - Force Model migration :
-	```bash
-		python manage.py migrate --fake <app_name> zero
-	```
+```bash
+	$ python3 manage.py migrate --fake <app_name> zero
+```
