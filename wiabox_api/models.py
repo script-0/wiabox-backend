@@ -17,9 +17,9 @@ INTEGRATION_PROCESSES = (
 NO_COMMUNITY = 'NO COMMUNITY'
 
 class CommunityUser(models.Model):
-	firstName =  models.CharField(max_length = 50)
-	lastName =  models.CharField(max_length = 50)
-	login =  models.CharField(max_length = 10, unique=True)
+	firstName =  models.CharField(max_length = 256)
+	lastName =  models.CharField(max_length = 256)
+	login =  models.CharField(max_length = 256, unique=True)
 	password = models.CharField(max_length = 256)
 	email = models.EmailField()
 	birthday = models.DateTimeField(auto_now_add=True)
@@ -31,10 +31,10 @@ class CommunityUser(models.Model):
 class Node(models.Model):
 	latitude = models.FloatField()
 	longitude = models.FloatField()
-	community_name = models.CharField(max_length = 50 , default = NO_COMMUNITY)
+	community_name = models.CharField(max_length = 256 , default = NO_COMMUNITY)
 	possessor = models.ForeignKey(CommunityUser, null=True, on_delete = models.SET(0))
-	state = models.CharField(choices = NODE_STATES , max_length=1)
-	name = models.CharField(max_length = 50)
+	state = models.CharField(choices = NODE_STATES , max_length=256)
+	name = models.CharField(max_length = 256)
 	description = models.TextField(null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	last_updated_at = models.DateTimeField(auto_now=True)
@@ -46,7 +46,7 @@ class Node(models.Model):
 	'''
 
 class Community(models.Model):
-	name =  models.CharField(max_length = 50, unique=True) 
+	name =  models.CharField(max_length = 256, unique=True) 
 	email = models.EmailField()
 	original_node = models.ForeignKey(Node, on_delete = models.SET(0))
 	description = models.TextField(null=True , default = '')
@@ -54,7 +54,7 @@ class Community(models.Model):
 	whatsapp = models.TextField(null=True , default = '')
 	twitter = models.TextField(null=True , default = '')
 	linkedin = models.TextField(null=True , default = '')
-	integrationProcess = models.CharField(choices = INTEGRATION_PROCESSES , max_length=1)
+	integrationProcess = models.CharField(choices = INTEGRATION_PROCESSES , max_length=256)
 	created_at = models.DateTimeField(auto_now_add=True)
 	last_updated_at = models.DateTimeField(auto_now=True)
 	def __str__(self):
@@ -65,7 +65,7 @@ class Community(models.Model):
 	'''
 
 class Article(models.Model):
-	title =  models.CharField(max_length = 50, unique=True)
+	title =  models.CharField(max_length = 256, unique=True)
 	publicator = models.ForeignKey(CommunityUser, on_delete = models.SET(0))
 	community = models.ForeignKey(Community, on_delete = models.SET(0))
 	content = models.TextField(null=True)
@@ -75,7 +75,7 @@ class Article(models.Model):
 		return self.title
 
 class Service(models.Model):
-	name =  models.CharField(max_length = 50, unique=True)
+	name =  models.CharField(max_length = 256, unique=True)
 	node = models.ForeignKey(Node, on_delete = models.SET(0))
 	description = models.TextField(null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
@@ -84,8 +84,8 @@ class Service(models.Model):
 		return self.name
 
 class Donation(models.Model):
-	title =  models.CharField(max_length = 50, unique=True)
-	author =  models.CharField(max_length = 50, unique=True)
+	title =  models.CharField(max_length = 256, unique=True)
+	author =  models.CharField(max_length = 256, unique=True)
 	community = models.ForeignKey(Community, on_delete = models.SET(0))
 	description = models.TextField(null=True)
 	create_at = models.DateTimeField(auto_now_add=True)
@@ -94,7 +94,7 @@ class Donation(models.Model):
 		return self.title
 
 class Event(models.Model):
-	title =  models.CharField(max_length = 50, unique=True)
+	title =  models.CharField(max_length = 256, unique=True)
 	publicator = models.ForeignKey(CommunityUser, on_delete = models.SET(0))
 	community = models.ForeignKey(Community, on_delete = models.SET(0))
 	description = models.TextField(null=True)

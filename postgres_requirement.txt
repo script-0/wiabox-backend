@@ -1,2 +1,4 @@
-sudo apt-get install libpq-dev python3-dev
-sudo apt-get install libpython3.8-dev
+Install and create wiabox user and database
+https://www.tecmint.com/install-postgresql-and-pgadmin-in-ubuntu/
+
+pip install psycopg2-binary
