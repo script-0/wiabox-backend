@@ -7,4 +7,5 @@
 ## Some improvements to make
 - [x] Update TextFields field on all models
 - [x] Specify not required field on all models
-- [] Update route links
+- [ ] Update route links
+- [ ] Update GPG Keys
