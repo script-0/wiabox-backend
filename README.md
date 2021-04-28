@@ -4,7 +4,7 @@ A REST api written in Django for Wiabox Project
 ## Technologies used
 * Python 3.7.5
 * [Django](https://www.djangoproject.com/): The web framework for perfectionists with deadlines (Django builds better web apps with less code).
-* [DRF](www.django-rest-framework.org/): A powerful and flexible toolkit for building Web APIs
+* [DRF](https://www.django-rest-framework.org/): A powerful and flexible toolkit for building Web APIs
 
 
 ## Installation
