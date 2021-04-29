@@ -3,6 +3,7 @@
 ## Next steps
 - [x] Integrate Postgres as SGBD
 - [ ] Implement routes on use case diagram
+- [ ] Voir les groupes connexes pour proposer un schema commun
 
 ## Some improvements to make
 - [x] Update TextFields field on all models
