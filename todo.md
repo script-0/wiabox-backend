@@ -9,4 +9,4 @@
 - [x] Update TextFields field on all models
 - [x] Specify not required field on all models
 - [ ] Update route links
-- [ ] Update GPG Keys
+- [x] Update GPG Keys
